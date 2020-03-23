@@ -13,18 +13,41 @@
 #controls {
     display: flex;
 }
-button {
-    background-color: #FFFFFF;
+#controls > div {
     border: 4px solid #CCCCCC;
     display: none;
     flex: 1;
     font-size: 25px;
     font-weight: bold;
-    height: 40px;
+}
+
+.control-btn {
+    background-color: #AAAAAA;
+    height: 70px;
+}
+#left {
+    background-image: url(../images/left.svg);
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-size: 45%;
+}
+
+#right {
+    background-image: url(../images/right.svg);
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-size: 45%;
+}
+
+#play {
+    background-image: url(../images/play.svg);
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-size: 45%;
 }
 
 @media (max-width: 768px) {
-    button {
+    #controls > div  {
         display: block;
     }
 }

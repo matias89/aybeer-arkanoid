@@ -1,4 +1,5 @@
 const canvas = document.getElementById('app');
+const playButton = document.getElementById('play');
 const width = window.innerWidth - 5;
 const height = window.innerHeight - 5;
 canvas.height = (height * 70) / 100;
@@ -9,8 +10,10 @@ const paddleColor = '#00BDEF';
 let brickColor = '#FFDF43';
 let fontColor = '#FEF7E9';
 let speed = 2;
-let dx = speed;
-let dy = -speed;
+let partialSpeedX = speed;
+let partialSpeedY = -speed;
+let dx = 0;
+let dy = 0;
 const ballRadius = 10;
 let x = canvas.width / 2;
 let y = canvas.height - 30;
@@ -34,6 +37,7 @@ let totalScore = 0;
 let lives = 3;
 let stage = 1;
 let counter = 2;
+let play = false;
 
 const bricks = [];
 const resetBricks = () => {
@@ -119,7 +123,8 @@ const draw = () => {
         else {
             lives--;
             if(!lives) {
-                document.location.reload();
+                //document.location.reload();
+                alert('Game Over :(');
             }
             else {
                 x = canvas.width / 2;
@@ -127,16 +132,17 @@ const draw = () => {
                 dx = speed;
                 dy = -speed;
                 paddleX = (canvas.width - paddleWidth) / 2;
+                togglePlay();
             }
         }
     }
     x += dx;
     y += dy;
 
-    if(rightPressed && paddleX < canvas.width-paddleWidth) {
+    if(rightPressed && paddleX < canvas.width-paddleWidth && play) {
         paddleX += moveValue;
     }
-    else if(leftPressed && paddleX > 0) {
+    else if(leftPressed && paddleX > 0 && play) {
         paddleX -= moveValue;
     }
     requestAnimationFrame(draw);
@@ -233,6 +239,22 @@ const changeStage = () => {
     dy = -speed;
 };
 
+const togglePlay = () => {
+    if (play) {
+        play = false;
+        partialSpeedX = dx;
+        partialSpeedY = dy;
+        dx = 0;
+        dy = 0;
+        playButton.style.backgroundImage = 'url(./images/play.svg)';
+    } else {
+        play = true;
+        dx = partialSpeedX;
+        dy = partialSpeedY;
+        playButton.style.backgroundImage = 'url(./images/pause.svg)';
+    }
+};
+
 document.addEventListener('keydown', keyDownHandler, false);
 document.addEventListener('keyup', keyUpHandler, false);
 // document.addEventListener('mousemove', mouseMoveHandler, false);
@@ -240,5 +262,6 @@ document.getElementById('left').addEventListener('touchstart', moveToLeft, false
 document.getElementById('left').addEventListener('touchend', StopToLeft, false);
 document.getElementById('right').addEventListener('touchstart', moveToRight, false);
 document.getElementById('right').addEventListener('touchend', StopToRight, false);
+document.getElementById('play').addEventListener('touchstart', togglePlay, false);
 // document.addEventListener('mouseup', StopToLeft, false);
 draw();
