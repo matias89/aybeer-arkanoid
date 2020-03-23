@@ -1,0 +1,30 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+#app {
+    border: 2px solid #FFFFFF;
+    background-image: url(../images/aybeer_2.png);
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-size: 50% auto;
+}
+#controls {
+    display: flex;
+}
+button {
+    background-color: #FFFFFF;
+    border: 4px solid #CCCCCC;
+    display: none;
+    flex: 1;
+    font-size: 25px;
+    font-weight: bold;
+    height: 40px;
+}
+
+@media (max-width: 768px) {
+    button {
+        display: block;
+    }
+}
